@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap');
+
+/* Design tokens — dark by default, .light override */
+:root {
+  --bg: #0E1019;
+  --surface: #1A1D29;
+  --surface-alt: #22263A;
+  --ink: #F1F2F7;
+  --ink-soft: #C8CBDB;
+  --muted: #7E8499;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #7C5CFF;
+  --accent-soft: rgba(124, 92, 255, 0.13);
+  --nav-bg: rgba(20, 22, 32, 0.85);
+  --success: #34D399;
+  --warning: #FBBF24;
+  --danger: #F87171;
+  --info: #60A5FA;
+  --jp-red: #FF6B6B;
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset, 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-elev: 0 24px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.light {
+  --bg: #FAF7F2;
+  --surface: #FFFFFF;
+  --surface-alt: #F3F0EA;
+  --ink: #161827;
+  --ink-soft: #3D425A;
+  --muted: #7C8194;
+  --border: rgba(20, 20, 40, 0.08);
+  --accent-soft: rgba(124, 92, 255, 0.08);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+  --jp-red: #C73E3A;
+  --shadow-card: 0 1px 2px rgba(20,20,40,0.04), 0 0 0 1px rgba(0,0,0,0.03);
+  --shadow-elev: 0 24px 50px rgba(20,20,40,0.10), 0 1px 0 rgba(0,0,0,0.04);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+}
+
+.jp { font-family: 'Noto Sans JP', sans-serif; }
+.jp-serif { font-family: 'Noto Serif JP', serif; }
+
+button { font-family: inherit; -webkit-tap-highlight-color: transparent; }
+kbd { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(120,120,140,0.25); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(120,120,140,0.45); }
+
+ruby rt { font-size: 0.5em; opacity: 0.7; }
+
+/* Flashcard 3D flip */
+.card-3d { perspective: 1500px; }
+.card-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 1.2, 0.4, 1);
+}
+.card-inner.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.card-back { transform: rotateY(180deg); }
+
+/* Heatmap colors mix with --accent via opacity */
+.heat-0 { background: var(--surface-alt); }
+
+/* Safe area for mobile bottom nav */
+.pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 5.5rem); }
+
+/* Selection */
+::selection { background: var(--accent); color: white; }
+
+/* Hide default details marker */
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+
+/* Input autofill — keep dark style */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
