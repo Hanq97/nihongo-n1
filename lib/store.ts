@@ -438,6 +438,7 @@ export const useApp = create<AppState>((set, get) => ({
 
     // Auto-seed deck for the current user with only the newly added content
     if (u) {
+      const user = u;
       const allDecks = storage.getDecks();
       const allCards = storage.getCards();
       const allStates = storage.getCardStates();
@@ -450,12 +451,12 @@ export const useApp = create<AppState>((set, get) => ({
         items.forEach((it, i) => {
           const cId = uid();
           allCards.push({ id: cId, deck_id: deckId, entity_type: type, entity_id: it.id, position: i });
-          allStates.push(emptyState(u.id, cId));
+          allStates.push(emptyState(user.id, cId));
           cardIds.push(cId);
         });
         allDecks.push({
           id: deckId,
-          user_id: u.id,
+          user_id: user.id,
           name,
           type,
           description: `Import ${nowIso.slice(0, 10)} — ${items.length} thẻ`,
